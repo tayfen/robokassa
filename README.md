@@ -22,7 +22,7 @@ robokassa = Robokassa(
 * After that, you can generate a link to payment page
 Write a necessary params for a link. You can use
 additional params. Choose default prefix of params.
-It can be **shp**, **Shp** or **SHP**. Don't specify
+It can be **shp**, **Shp** or **SHP**, don't specify
 `=` symbol. Method automatically generate additional params.
 Next, you can use any params like in example: `user_data`, 
 `product_id`.
