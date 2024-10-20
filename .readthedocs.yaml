@@ -8,11 +8,11 @@ build:
     post_create_environment:
       # Install poetry
       - pip install poetry
+      - pip instrall furo
       # Tell poetry to not use a virtual environment
       - poetry config virtualenvs.create false
     post_install:
       # Install dependencies
-      - poetry install furo
       - poetry install --with docs
 
 sphinx:
