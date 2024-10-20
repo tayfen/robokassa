@@ -12,6 +12,7 @@ build:
       - poetry config virtualenvs.create false
     post_install:
       # Install dependencies
+      - poetry install furo
       - poetry install --with docs
 
 sphinx:
