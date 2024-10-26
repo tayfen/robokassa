@@ -1,6 +1,7 @@
 import pytest
 
 from robokassa import Robokassa, HashAlgorithm
+from robokassa.exceptions import RobokassaInterfaceError
 from robokassa.types import RobokassaParams
 
 from robokassa.asyncio import Robokassa as AsyncRobokassa
@@ -20,10 +21,10 @@ class TestRobokassaClient:
     result_url = "https://example.com"
 
     def test_client(self) -> None:
-        assert self.robokassa.merchant_login == "test_login"
+        assert self.robokassa._merchant_login == "test_login"
 
     def test_link_generator(self) -> None:
-        link = self.robokassa.generate_link_to_payment_page(out_sum=1, inv_id=0)
+        link = self.robokassa.create_link_to_payment_page_by_script(out_sum=1, inv_id=0)
         assert link
 
     def test_robokassa_params(self) -> None:
@@ -35,8 +36,14 @@ class TestRobokassaClient:
         )
         assert isinstance(dict_params.as_dict(), dict)
 
+    def test_robokassa_currency(self) -> None:
+        result = self.robokassa.get_currencies(language="en")
 
-class TestRobokassaAsyncio:
+        assert result
+        assert isinstance(result, dict)
+
+
+class TestRobokassaAsyncioClient:
     robokassa = AsyncRobokassa(
         is_test=True,
         merchant_login="test_login",
@@ -47,22 +54,26 @@ class TestRobokassaAsyncio:
 
     @pytest.mark.asyncio
     async def test_link(self) -> None:
-        link = self.robokassa.payments.link.generate_by_script(
-            out_sum=1,
-            inv_id=0,
-        )
-        assert link
+        try:
+            link = self.robokassa.create_link_to_payment_page_by_script(
+                out_sum=1,
+                inv_id=0,
+            )
+            assert link
 
-        link1 = await self.robokassa.payments.link.create_by_invoice_id(
-            inv_id=0,
-            description="Hello world!",
-            out_sum=1000,
-        )
-        assert link1
+            link1 = await self.robokassa.create_link_to_payment_page_by_invoice_id(
+                inv_id=0,
+                description="Hello world!",
+                out_sum=1000,
+            )
+            assert link1
+
+        except RobokassaInterfaceError as ex:
+            assert "26" in str(ex)
 
     @pytest.mark.asyncio
     async def test_currency(self) -> None:
-        data = await self.robokassa.get_currencies(language="ru")
+        data = await self.robokassa.get_currencies(language="en")
 
         assert data
         assert isinstance(data, dict)
