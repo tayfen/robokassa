@@ -20,7 +20,7 @@ async def handle_robokassa_request(
     post = await request.post()
     data = post
 
-    result = robokassa.payment.check.success_or_fail_url_signature_is_valid(
+    result = robokassa.success_or_fail_signature_is_valid(
         success_signature=data["SignatureValue"].lower(),
         out_sum=data["OutSum"],
         inv_id=data["InvId"],
