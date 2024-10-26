@@ -211,5 +211,5 @@ class Robokassa(BaseRobokassa):
         :return: True if signature is valid, else False
         """
         return self._checker.result_url_signature_is_valid(
-            signature=signature, out_sum=out_sum, inv_id=inv_id, **kwargs
+            result_signature=signature, out_sum=out_sum, inv_id=inv_id, **kwargs
         )
