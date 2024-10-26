@@ -53,14 +53,15 @@ class HttpResponseValidator:
             return element.text.strip() if element.text else None
         result = {}
         for child in element:
-            tag = child.tag.split('}')[-1]  # Удаление пространства имен
-            child_dict = self.xml_to_dict(child)  # Рекурсивный вызов
-            # Если у элемента есть атрибуты, добавляем их в словарь
+            tag = child.tag.split("}")[-1]
+            child_dict = self.xml_to_dict(child)
             if child.attrib:
                 if tag in result:
                     if not isinstance(result[tag], list):
                         result[tag] = [result[tag]]
-                    result[tag].append({**child.attrib, **(child_dict if child_dict else {})})
+                    result[tag].append(
+                        {**child.attrib, **(child_dict if child_dict else {})}
+                    )
                 else:
                     result[tag] = {**child.attrib, **(child_dict if child_dict else {})}
             else:
