@@ -1,20 +1,26 @@
-.. robokassa documentation master file, created by
-   sphinx-quickstart on Sun Oct 20 13:15:29 2024.
-   You can adapt this file completely to your liking, but it should at least
-   contain the root `toctree` directive.
+Robokassa
+=============================================
 
-Welcome to robokassa's documentation!
-=====================================
+.. include:: installation/index.rst
+
+
+Simple usage
+------------
+
+.. literalinclude:: ../../examples/link_generator.py
+
 
 .. toctree::
-   :maxdepth: 2
-   :caption: Contents:
+    :maxdepth: 3
+    :caption: Contents:
 
+    overview/index
+    installation/index
+    api/index
 
+.. toctree::
+    :hidden:
+    :caption: Project Links
 
-Indices and tables
-==================
-
-* :ref:`genindex`
-* :ref:`modindex`
-* :ref:`search`
+    GitHub <https://github.com/byBenPuls/robokassa>
+    PyPI <https://pypi.org/project/robokassa>
