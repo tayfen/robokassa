@@ -2,7 +2,7 @@ from typing import Optional
 
 from httpx import AsyncClient
 
-from robokassa.connection import BaseHttpConnection
+from robokassa.connection import BaseHttpConnection, BaseRequests
 
 
 class AsyncHttpConnection(BaseHttpConnection):
@@ -19,6 +19,6 @@ class AsyncHttpConnection(BaseHttpConnection):
         await self._async_client.aclose()
 
 
-class Requests:
+class Requests(BaseRequests):
     _base_url = "https://auth.robokassa.ru/Merchant"
     connection = AsyncHttpConnection(base_url=_base_url)

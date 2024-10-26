@@ -21,6 +21,10 @@ class HttpConnection(BaseHttpConnection):
         self._sync_client.close()
 
 
-class Requests:
+class BaseRequests:
+    pass
+
+
+class Requests(BaseRequests):
     _base_url = "https://auth.robokassa.ru/Merchant"
     connection = HttpConnection(base_url=_base_url)
